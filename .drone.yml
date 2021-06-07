@@ -1,0 +1,29 @@
+pipeline:
+  check_params:
+    image: postgres:9.4.19
+    commands:
+        - psql -VA
+        - md5sum .drone.yml
+        - cat lab1/lab1.sql
+        - echo ${DRONE_BUILD_LINK}
+ 
+  grade_lab1:
+    image: postgres:9.4.19
+    environment:
+        - PGPASSWORD=p@ssw0rd
+    commands:
+        - |
+          until psql -U postgres -d lab1 -h postgres \
+            -c "SELECT 1;" >/dev/null 2>&1; do sleep 1; done
+        - |
+          psql -U postgres -d lab1 -h postgres \
+            -a -v ON_ERROR_STOP=1 -f lab1/lab1.sql
+
+services:
+  postgres:
+    image: postgres:9.4.19
+    environment:
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=p@ssw0rd
+        - POSTGRES_DB=lab1
+
