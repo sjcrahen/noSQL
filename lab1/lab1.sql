@@ -71,12 +71,9 @@ INSERT INTO inventory (status_id, description, created_at) VALUES
 /* insert 3 records into the transactions table, then update the status of the
  * items in the inventory table to 'Checked out'
  */
-INSERT INTO transactions (user_id, inventory_id, checkout_time,
-scheduled_checkin_time, created_at) VALUES (1, 1,'2021-06-10 21:05:06','2021-07-10 18:00:00','now');
-INSERT INTO transactions (user_id, inventory_id, checkout_time,
-scheduled_checkin_time, created_at) VALUES (2, 2,'2021-06-11 21:05:00','2021-06-25 18:00:00','now');
-INSERT INTO transactions (user_id, inventory_id, checkout_time,
-scheduled_checkin_time, created_at) VALUES (3, 3,'2021-06-12 15:00:00','2021-07-12 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, created_at) VALUES (1, 1,'2021-06-10 21:05:06','2021-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, created_at) VALUES (2, 2,'2021-06-11 21:05:00','2021-06-25 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, created_at) VALUES (3, 3,'2021-06-12 15:00:00','2021-07-12 18:00:00','now');
 UPDATE inventory SET status_id = 2, updated_at = 'now' WHERE id < 4;
 
 --alter the users table to add a column for 'signed_agreement' (bool def false)
@@ -101,3 +98,39 @@ FROM inventory i JOIN transactions t ON i.id = t.inventory_id
 WHERE t.user_id = 1 AND i.status_id = 2;
 
 --LAB1B
+
+--insert 20 transactions
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (1, 2,'2018-06-10 21:05:06','2018-07-10 18:00:00','2018-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (1, 3,'2018-06-10 21:05:06','2018-07-10 18:00:00','2018-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (5, 1,'2018-06-10 21:05:06','2018-07-10 18:00:00','2018-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (2, 4,'2018-06-10 21:05:06','2018-07-10 18:00:00','2018-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (2, 1,'2017-06-10 21:05:06','2017-07-10 18:00:00','2017-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (2, 3,'2017-06-10 21:05:06','2017-07-10 18:00:00','2017-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (3, 3,'2016-06-10 21:05:06','2016-07-10 18:00:00','2016-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (5, 4,'2017-06-10 21:05:06','2017-07-10 18:00:00','2017-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (3, 5,'2018-06-10 21:05:06','2018-07-10 18:00:00','2018-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (4, 5,'2017-06-10 21:05:06','2017-07-10 18:00:00','2017-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (4, 1,'2016-06-10 21:05:06','2016-07-10 18:00:00','2016-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (4, 2,'2017-06-10 21:05:06','2017-07-10 18:00:00','2017-07-10 18:00:00','now');
+
+--3 transactions where actual_checkin_time > scheduled_checkin_time
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (1, 5,'2016-06-10 21:05:06','2016-07-10 18:00:00','2016-07-11 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (2, 4,'2016-06-10 21:05:06','2016-07-10 18:00:00','2016-07-12 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (1, 3,'2015-06-10 21:05:06','2015-07-10 18:00:00','2015-07-13 18:00:00','now');
+
+--5 transactions where checkout_time > '2018-09-03'
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (3, 1,'2021-06-10 21:05:06','2021-07-10 18:00:00','2021-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (4, 2,'2021-06-10 21:05:06','2021-07-10 18:00:00','2021-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (5, 3,'2021-06-10 21:05:06','2021-07-10 18:00:00','2021-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (5, 1,'2020-06-10 21:05:06','2020-07-10 18:00:00','2020-07-10 18:00:00','now');
+INSERT INTO transactions (user_id, inventory_id, checkout_time, scheduled_checkin_time, actual_checkin_time, created_at) VALUES (5, 5,'2021-06-10 21:05:06','2021-07-10 18:00:00','2021-07-10 18:00:00','now');
+
+--create a late checkins view
+CREATE VIEW late_checkins AS
+SELECT t.user_id, i.description, count(*) AS occurrences
+FROM transactions t JOIN inventory i ON t.inventory_id = i.id
+WHERE t.actual_checkin_time > t.scheduled_checkin_time
+GROUP BY t.user_id, t.inventory_id, i.description;
+
+--test the late checkins view
+SELECT * FROM late_checkins;
