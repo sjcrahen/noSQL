@@ -2,7 +2,7 @@
 
 --create a new table named users
 CREATE TABLE users (
-    id integer SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     first_name varchar(40),
     last_name varchar(40),
     email varchar (40) NOT NULL,
