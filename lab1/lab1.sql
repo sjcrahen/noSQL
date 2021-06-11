@@ -13,7 +13,7 @@ CREATE TABLE users (
 
 --create a new table named status
 CREATE TABLE status (
-    id integer SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     description text NOT NULL,
     created_at timestamp,
     updated_at timestamp
@@ -21,7 +21,7 @@ CREATE TABLE status (
 
 --create a new table named inventory
 CREATE TABLE inventory (
-    id integer SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     status_id integer REFERENCES status (id),
     description text NOT NULL,
     created_at timestamp,
@@ -30,7 +30,7 @@ CREATE TABLE inventory (
 
 --create a new table named transactions
 CREATE TABLE transactions (
-    id integer SERIAL PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     user_id integer REFERENCES users (id),
     inventory_id integer REFERENCES inventory (id),
     checkout_time timestamp NOT NULL,
