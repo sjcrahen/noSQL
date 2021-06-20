@@ -1,19 +1,18 @@
 pipeline:
   check_params:
-    image: dasudian/riak
+    image: uiscsc561/riak
     commands:
         - sleep 30 
-        - curl http://riak:8098/ping
-        - md5sum lab2a/lab2a.sh
-        - cat lab2a/lab2a.sh
+        - curl -s http://riak:8098/ping
+        - cat lab2b/lab2b.sh
  
-  grade_lab2a:
-    image: dasudian/riak
+  grade_lab2b:
+    image: uiscsc561/riak
     commands:
-        - bash lab2a/lab2a.sh 
+        - bash lab2b/lab2b.sh 
 
 services:
   riak:
-    image: dasudian/riak
+    image: uiscsc561/riak
     ports:
       - "8098:8098" 
