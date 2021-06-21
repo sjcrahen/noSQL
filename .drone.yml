@@ -1,18 +1,16 @@
 pipeline:
   check_params:
-    image: uiscsc561/riak
+    image: mongo:3.2.9
     commands:
-        - sleep 30 
-        - curl -s http://riak:8098/ping
-        - cat lab2b/lab2b.sh
+        - cat lab3a/lab3a.js
+        - sleep 15 
  
-  grade_lab2b:
-    image: uiscsc561/riak
+  grade_lab3a:
+    image: mongo:3.2.9
     commands:
-        - bash lab2b/lab2b.sh 
+        - mongo --host mongodb < lab3a/lab3a.js 
 
 services:
-  riak:
-    image: uiscsc561/riak
-    ports:
-      - "8098:8098" 
+  mongodb:
+    image: mongo:3.2.9
+    command: [ --smallfiles ]
