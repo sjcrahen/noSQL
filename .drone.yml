@@ -2,13 +2,13 @@ pipeline:
   check_params:
     image: mongo:3.2.9
     commands:
-        - cat lab3a/lab3a.js
+        - cat lab3b/lab3b.js
         - sleep 15 
  
-  grade_lab3a:
+  grade_lab3b:
     image: mongo:3.2.9
     commands:
-        - mongo --host mongodb < lab3a/lab3a.js 
+        - mongo --host mongodb < lab3b/lab3b.js 
 
 services:
   mongodb:
