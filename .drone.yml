@@ -1,16 +1,32 @@
 pipeline:
   check_params:
-    image: mongo:3.2.9
+    image: uiscsc561/hbase-slave
+    environment:
+       - JAVA_HOME=/usr/lib/jvm/default-jvm
     commands:
-        - cat lab3b/lab3b.js
-        - sleep 15 
+        - cat lab4a/lab4a.rb
+        - cp /etc/hosts /tmp/hosts
+        - sed -i 's/localhost/localdomain/g' /tmp/hosts
+        - echo "172.20.0.2     hbase-docker localhost" >> /tmp/hosts 
+        - echo "$(cat /tmp/hosts)" > /etc/hosts 
+        - echo "version"  | hbase shell
+        - sleep 10 
  
-  grade_lab3b:
-    image: mongo:3.2.9
+  grade_lab4a:
+    image: uiscsc561/hbase-slave
+    environment:
+       - JAVA_HOME=/usr/lib/jvm/default-jvm
     commands:
-        - mongo --host mongodb < lab3b/lab3b.js 
+        - cp /etc/hosts /tmp/hosts
+        - sed -i 's/localhost/localdomain/g' /tmp/hosts
+        - scp drone@csc570e.uis.edu:/home/drone/hostname /tmp/
+        - cat /tmp/hostname >> /tmp/hosts
+        - echo "$(cat /tmp/hosts)" > /etc/hosts 
+        - hbase shell -n lab4a/base.txt
+        - hbase shell -n lab4a/lab4a.rb
 
 services:
-  mongodb:
-    image: mongo:3.2.9
-    command: [ --smallfiles ]
+  hbase-docker:
+    image: uiscsc561/hbase-master
+    environment:
+       - JAVA_HOME=/usr/lib/jvm/default-jvm
