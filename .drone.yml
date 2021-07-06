@@ -19,7 +19,7 @@ pipeline:
     commands:
         - cp /etc/hosts /tmp/hosts
         - sed -i 's/localhost/localdomain/g' /tmp/hosts
-        - scp drone@csc570e.uis.edu:/home/drone/hostname /tmp/
+        - scp -o StrictHostKeyChecking=no drone@172.23.0.1:/home/drone/hostname /tmp/
         - cat /tmp/hostname >> /tmp/hosts
         - echo "$(cat /tmp/hosts)" > /etc/hosts 
         - hbase shell -n lab4a/base.txt
