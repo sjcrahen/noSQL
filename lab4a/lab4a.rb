@@ -14,7 +14,7 @@ def put_many( table_name, row, column_values)
      col = key.split( ":", 2 )
      column_family = col[0]
      column_qualifier = col[1]
-     p.add( column_family, column_qualifier, value )
+     p.add( *jbytes(column_family, column_qualifier, value ))
   end
 
   table.put( p )
