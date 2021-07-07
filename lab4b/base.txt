@@ -1,0 +1,7 @@
+#Your create foods table code goes here
+
+
+
+#Do not remove the exit call below
+exit
+

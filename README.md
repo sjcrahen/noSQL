@@ -4,7 +4,7 @@
 
 ---
 
-Lab4a:
+Lab4b:
 
 <img src="https://csc570e.uis.edu/api/badges/CSC561A-420215/scrah2/status.svg?branch=master">
 
