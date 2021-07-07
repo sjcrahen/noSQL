@@ -11,10 +11,10 @@ def put_many( table_name, row, column_values)
   table = HTable.new( @hbase.configuration, table_name )
   p = Put.new( *jbytes( row ))
   column_values.each do |key, value| 
-     col = split( key, ":" )
+     col = key.split( ":", 2 )
      column_family = col[0]
      column_qualifier = col[1]
-     p.add( column_family, column qualifier, value )
+     p.add( column_family, column_qualifier, value )
   end
 
   table.put( p )
