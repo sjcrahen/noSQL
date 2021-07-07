@@ -8,7 +8,6 @@ end
 
 def put_many( table_name, row, column_values)
 
-  ***INSERT YOUR CODE******
   table = HTable.new( @hbase.configuration, table_name )
   p = Put.new( *jbytes( row ))
   column_values.each do |key, value| 
@@ -17,6 +16,7 @@ def put_many( table_name, row, column_values)
      column_qualifier = col[1]
      p.add( column_family, column qualifier, value )
   end
+
   table.put( p )
 end
 
