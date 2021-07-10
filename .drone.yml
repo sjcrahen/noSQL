@@ -1,34 +1,16 @@
 pipeline:
   check_params:
-    image: uiscsc561/hbase-slave
-    environment:
-       - JAVA_HOME=/usr/lib/jvm/default-jvm
+    image: uiscsc561/neo4j
     commands:
-        - cat lab4b/base.txt
-        - cat lab4b/lab4b.rb
-        - cp /etc/hosts /tmp/hosts
-        - sed -i 's/localhost/localdomain/g' /tmp/hosts
-        - echo "172.20.0.2     hbase-docker localhost" >> /tmp/hosts 
-        - echo "$(cat /tmp/hosts)" > /etc/hosts 
-        - echo "version"  | hbase shell
-        - sleep 10 
- 
-  grade_lab4b:
-    image: uiscsc561/hbase-slave
-    environment:
-       - JAVA_HOME=/usr/lib/jvm/default-jvm
+        - cat lab5a/lab5a.cypher
+        - sleep 5 
+        
+  grade_lab5a:
+    image: uiscsc561/neo4j
     commands:
-        - cp /etc/hosts /tmp/hosts
-        - sed -i 's/localhost/localdomain/g' /tmp/hosts
-        - scp -o StrictHostKeyChecking=no drone@172.23.0.1:/home/drone/hostname /tmp/
-        - cat /tmp/hostname >> /tmp/hosts
-        - echo "$(cat /tmp/hosts)" > /etc/hosts 
-        - hbase shell -n lab4b/base.txt 
-        - cat lab4b/Food_Display_Table.xml | hbase shell -n lab4b/lab4b.rb
-        - hbase shell -n lab4b/result.txt 
+        - cat lab5a/lab5a.cypher | /var/lib/neo4j/bin/cypher-shell -a neo4j --format plain --fail-at-end --debug --non-interactive
+        - /var/lib/neo4j/bin/cypher-shell -a neo4j --format verbose "MATCH (n)-[r]->(m) RETURN n,r,m;"
 
 services:
-  hbase-docker:
-    image: uiscsc561/hbase-master
-    environment:
-       - JAVA_HOME=/usr/lib/jvm/default-jvm
+  neo4j:
+    image: uiscsc561/neo4j
