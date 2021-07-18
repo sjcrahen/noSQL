@@ -1,16 +1,15 @@
 pipeline:
   check_params:
-    image: uiscsc561/neo4j
+    image: docker.io/couchdb:1.6.1 
     commands:
-        - cat lab5a/lab5a.cypher
         - sleep 5 
+        - cat lab6a/lab6a.sh
         
-  grade_lab5a:
-    image: uiscsc561/neo4j
+  grade_lab6a:
+    image: docker.io/couchdb:1.6.1
     commands:
-        - cat lab5a/lab5a.cypher | /var/lib/neo4j/bin/cypher-shell -a neo4j --format plain --fail-at-end --debug --non-interactive
-        - /var/lib/neo4j/bin/cypher-shell -a neo4j --format verbose "MATCH (n)-[r]->(m) RETURN n,r,m;"
+        - bash lab6a/lab6a.sh 
 
 services:
-  neo4j:
-    image: uiscsc561/neo4j
+  couchdb:
+    image: docker.io/couchdb:1.6.1
