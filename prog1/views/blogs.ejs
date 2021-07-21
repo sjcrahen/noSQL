@@ -1,0 +1,55 @@
+<% include partials/header %>
+
+<h1>Add Blog</h1>
+<% if(errors != undefined){ %>
+<ul>
+<% errors.forEach(function(error){ %>
+<li style="color:red"><%= error.msg %></li>
+<% }) %>
+</ul>
+<% } %>
+
+<form method="POST" action="/blogs/add">
+<label><b>Title</b></label><br>
+<input type="text" name="title" size=50><br>
+<label><b>Slug</b></label><br>
+<input type="text" name="slug" size=50><br>
+<label><b>Author</b></label><br>
+<select name="author">
+    <% users.forEach(function(user) { %>
+        <option value="<%= user._id %>"><%= user.name %></option>
+    <% }) %>
+</select><br>
+<label><b>Body</b></label><br>
+<textarea name="body" cols=55 rows=8></textarea><br>
+<label><b>Comment</b></label><br>
+<textarea name="comments" cols=55 rows=8></textarea><br>
+<label><b>Category</b></label><br>
+<input type="text" name="category" size=50><br>
+<br>
+<input type="submit" value="Submit">
+</form>
+
+<h1>Blogs</h1>
+<% blogs.forEach(function(blog){ %>
+    <div class=blog>
+        <h3><%= blog.title %></h3>
+        <i>by <%= blog.author.name %></i><br><br>
+        <%= blog.body %><br><br>
+        <b>Comments</b><br>
+        <ul>
+            <li><%= blog.comments.comment %> (<%= blog.comments.created_at %>)</li>
+        </ul>
+        <b>Category</b>
+        <ul>
+            <li><%= blog.category.name %></li>
+        </ul>
+        <a href='/blogs/edit/<%= blog._id %>'>Edit</a>
+        <form method="post" action="/blogs/delete/<%= blog._id %>">
+            <input type="submit" name="delete" value='Delete' onClick="return confirm('Are you sure you want to delete this blog?')" />
+            <input type="hidden" name="_method" value="DELETE" />
+        </form>
+    </div>
+<% }) %>
+
+<% include partials/footer %>
